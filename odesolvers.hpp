@@ -8,41 +8,60 @@ using namespace std;
 // Abstract Base Class 
 class ODESolver{
 
-  virtual void solve() = 0;  
-  virtual vector<double> step() = 0;
+  void solve();  
+  vector<double> step(float t, vector<double> state);
 
-};
-
-class RKF45:ODESolver{
- 
   // variables
   public:
     vector<float> t_hist;
     vector< vector<double> > state_hist;
 
-  private:
+  protected:
     vector<double>(*m_func)(float, vector<double>);
     vector<double> m_y0;
     float m_t0;
     float m_tF;
+    float m_tstep;
 
-  // methods
+};
+
+class ForwardEuler:public ODESolver{
+ 
   public:
-    // constructor
-    RKF45(vector<double>(*func)(float, vector<double>),
+    // Constructor
+    ForwardEuler(vector<double>(*func)(float, vector<double>),
         vector<float> tspan,
+        float t_step,
         vector<double> y0);
-
-    // destructor
 
   private:
     // run solver for given parameters
-    void solve() override;
+    void solve();
 
     // step
-    vector<double> step() override;
+    vector<double> step(float t, vector<double> state, float dt);
 
 };
+
+
+class RKF45:public ODESolver{
+
+  public:
+    // Constructor
+    RKF45(vector<double>(*func)(float, vector<double>),
+        vector<float> tspan,
+        float t_step,
+        vector<double> y0);
+
+  private:
+    // run solver for given parameters
+    void solve();
+
+    // step
+    vector<double> step(float t, vector<double> state);
+
+};
+
 
 #endif // !ODESOLVERS_HPP
 
