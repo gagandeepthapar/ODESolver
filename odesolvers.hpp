@@ -1,5 +1,5 @@
-#ifndef SRC_HPP
-#define SRC_HPP
+#ifndef ODESOLVERS_HPP 
+#define ODESOLVERS_HPP 
 
 #include <vector>
 
@@ -44,5 +44,5 @@ class RKF45:ODESolver{
 
 };
 
-#endif // !SRC_HPP
+#endif // !ODESOLVERS_HPP
 

@@ -6,6 +6,6 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/..)
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 
-add_executable(main main.cpp src.cpp)
-add_executable(test test.cpp src.cpp)
+add_executable(main main.cpp odesolvers.cpp)
+add_executable(test test.cpp odesolvers.cpp)
 
