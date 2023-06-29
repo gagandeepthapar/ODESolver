@@ -1,95 +1,56 @@
 #include "odesolvers.hpp"
-
-#include <iostream>
 #include <vector>
+#include <eigen3/Eigen/Core>
 
 using namespace std;
 
 /*
- * ForwardEuler Definitions 
-*/ 
-ForwardEuler::ForwardEuler(vector<double>(*func)(float, vector<double>),
-        vector<float> tspan,
-        float t_step,
-        vector<double> y0){
+ * ODE Definitions
+ */ 
 
-  m_func = func;
-  m_t0 = tspan[0];
-  m_tF = tspan[1];
-  m_tstep = t_step;
-  m_y0 = y0;
+Eigen::VectorXd ODESolver::solve(Eigen::VectorXd args){
+ 
+  // unpack data
+  double t = (double)this->m_t0;
+  double dt = this->m_tstep;
+  Eigen::VectorXd cur_state = this->m_y0;
 
-  solve();
+  // iterate through timespan 
+  while(t < this->m_tF){
+    // step through based on integration scheme 
+    cur_state = step(t, cur_state, args);
 
-}
-
-void ForwardEuler::solve(){
-  /* 
-   * Step through in time until final time met
-   */
-
-  double t = m_t0;
-  vector<double> newstate;
-  vector<double> prevstate = m_y0;
-
-  t_hist.push_back(t);
-  state_hist.push_back(prevstate);
-  
-  while(t <= m_tF){
-    newstate = step(t, prevstate, m_tstep);
-
-    if(t == m_tF){
-      return;
-    }
-
-    // check to ensure final time not exceeded
-    if(t + m_tstep > m_tF){
-      m_tstep = m_tF - t;
-    }
-    
-    t = t + m_tstep;
-
-    t_hist.push_back(t);
-    state_hist.push_back(newstate);
-    prevstate = newstate;
-
+    // increment t such that tF is never violated 
+    dt = (dt < (this->m_tF - t)) ? dt : (this->m_tF - t);
+    t = t + dt;
   }
 
-}
-
-vector<double> ForwardEuler::step(float t, vector<double> state, float dt){
-
-  vector<double> dstate = m_func(t, state);
-  vector<double> nstate;
-
-  for(int i = 0; i < dstate.size(); i ++){
-    nstate.push_back(dstate[i]*dt + state[i]);
-  }
-
-  return nstate;
+  // return final calculated state
+  return cur_state;
 }
 
 /*
- * RKF45 Definitions 
+ * Forward Euler Definitions
+ */
+
+// Constructor
+ForwardEuler::ForwardEuler(Eigen::VectorXd(*func)(float, Eigen::VectorXd, Eigen::VectorXd),
+      vector<float> tspan,
+      Eigen::VectorXd y0,
+      float t_step=1e-3f,
+      double tol){
+
+  this->m_func = func;
+  this->m_y0 = y0;
+  this->m_t0 = tspan[0];
+  this->m_tF = tspan[1];
+  this->m_tstep = t_step;
+  this->m_tol = m_tol;
+
+}
+
+// 
+
+/*
+* Runge-Kutta-Fehlberg (RKF) Definitions
 */
-RKF45::RKF45(vector<double>(*func)(float, vector<double>),
-        vector<float> tspan,
-        float t_step,
-        vector<double> y0){
-
-  m_func = func;
-  m_t0 = tspan[0];
-  m_tF = tspan[1];
-  m_tstep = t_step;
-  m_y0 = y0;
-
-}
-
-void RKF45::solve(){
- // TODO: Implement 
-}
-
-vector<double> RKF45::step(float t, vector<double> state){
-  // TODO: Implement
-  return {0.0f, 0.0f};
-}

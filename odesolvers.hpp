@@ -2,66 +2,59 @@
 #define ODESOLVERS_HPP 
 
 #include <vector>
+#include <eigen3/Eigen/Core>
 
 using namespace std;
 
-// Abstract Base Class 
+// Abstract base class
 class ODESolver{
+  //makes class abstract  
+  virtual void f() = 0;
 
-  void solve();  
-  vector<double> step(float t, vector<double> state);
+// functions
+protected:
+  Eigen::VectorXd step(float time, Eigen::VectorXd state, Eigen::VectorXd args);
 
-  // variables
-  public:
-    vector<float> t_hist;
-    vector< vector<double> > state_hist;
+public:
+  Eigen::VectorXd solve(Eigen::VectorXd args);
 
-  protected:
-    vector<double>(*m_func)(float, vector<double>);
-    vector<double> m_y0;
-    float m_t0;
-    float m_tF;
-    float m_tstep;
+// member variables
+protected:
+  Eigen::VectorXd(*m_func)(float, Eigen::VectorXd, Eigen::VectorXd);
+  Eigen::VectorXd m_y0;
+  int m_num_state;
+
+  float m_t0;
+  float m_tF;
+  float m_tstep;
+  double m_tol;
 
 };
 
+
 class ForwardEuler:public ODESolver{
- 
-  public:
-    // Constructor
-    ForwardEuler(vector<double>(*func)(float, vector<double>),
-        vector<float> tspan,
-        float t_step,
-        vector<double> y0);
-
-  private:
-    // run solver for given parameters
-    void solve();
-
-    // step
-    vector<double> step(float t, vector<double> state, float dt);
+public:
+  // Constructor
+  ForwardEuler(Eigen::VectorXd(*func)(float, Eigen::VectorXd, Eigen::VectorXd),
+      vector<float> tspan,
+      Eigen::VectorXd y0,
+      float t_step,
+      double tol=1e-8);
 
 };
 
 
 class RKF45:public ODESolver{
 
-  public:
-    // Constructor
-    RKF45(vector<double>(*func)(float, vector<double>),
-        vector<float> tspan,
-        float t_step,
-        vector<double> y0);
-
-  private:
-    // run solver for given parameters
-    void solve();
-
-    // step
-    vector<double> step(float t, vector<double> state);
+public:
+  // Constructor
+  RKF45(Eigen::VectorXd(*func)(float, Eigen::VectorXd, Eigen::VectorXd),
+      vector<float> tspan,
+      float t_step,
+      Eigen::VectorXd y0,
+      double tol=1e-8);
 
 };
-
 
 #endif // !ODESOLVERS_HPP
 
