@@ -1,11 +1,11 @@
 #include "odesolvers.hpp"
 #include "eigen3/Eigen/Core"
-#include "matplotlibcpp.hpp"
+#include "matplot/matplot.h"
 
 #include <iostream>
 
 using namespace std;
-namespace plt = matplotlibcpp;
+namespace plt = matplot;
 
 Eigen::VectorXf vanderpol(float time, Eigen::VectorXf state, Eigen::VectorXf args){
 
@@ -66,18 +66,17 @@ int main(){
   vector<Eigen::VectorXf> hist = ode.solve_hist(arg);
 
   // plot
-  vector<float> x, y;
+  vector<float> x, y, z;
   for(int i = 0; i < hist.size(); i++){
-    x.push_back(hist[i][1]);
-    y.push_back(hist[i][2]);
+    x.push_back(hist[i][0]);
+    y.push_back(hist[i][1]);
+    z.push_back(hist[i][2]);
   }
 
-  plt::clf();
-  plt::plot(x, y);
-  plt::title(ode.name);
+ 
+  auto p = plt::plot3(x, y, z);
+  cout << z.size() << endl;
   plt::show();
-
-
-
+  
   return 0;
 }
