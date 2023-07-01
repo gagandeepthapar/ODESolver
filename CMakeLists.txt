@@ -12,9 +12,9 @@ find_library(PYTHON_LIB
              PATHS /opt/homebrew/Cellar/python@3.11/3.11.3/Frameworks/Python.framework/Versions/3.11/lib
              NO_DEFAULT_PATH)
 
-
+find_package(Matplot++ REQUIRED)
 
 # add_executable(main.out main.cpp odesolvers.cpp)
-add_executable(test.out example.cpp odesolvers.cpp)
-target_link_libraries(test.out ${PYTHON_LIB})
-
+add_executable(example.out example.cpp odesolvers.cpp)
+target_link_libraries(example.out ${PYTHON_LIB})
+target_link_libraries(example.out Matplot++::matplot)
