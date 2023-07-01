@@ -9,8 +9,8 @@ I took an OOP approach to allow for the easy implementation of new solvers. Curr
 RK-45, on the other hand, is the workhorse of integration schemes and is able to compute integrations with 5th order local error and 4th order global error with relatively little work. This is used in `ode45` and the default method in `solve_ivp`.
 
 ## Includes
-Requires the `Eigen` C++ library which can be found [here]().
-Also uses the `MatplotLib` C++ header to plot data directly in C++ which can be found [here]().
+Requires the `Eigen` C++ library which can be found [here](https://eigen.tuxfamily.org/index.php?title=Main_Page).
+Also uses the `MatplotLib` C++ header to plot data directly in C++ which can be found [here](https://github.com/lava/matplotlib-cpp).
 `CMake` and `make` are used also used to build the program.
 
 ## Running 
