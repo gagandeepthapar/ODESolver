@@ -43,11 +43,17 @@ public:
 class ForwardEuler:public ODESolver{
 public:
   // Constructor
-  ForwardEuler(Eigen::VectorXd(*func)(float, Eigen::VectorXd, Eigen::VectorXd),
+  ForwardEuler(Eigen::VectorXf(*func)(float, Eigen::VectorXf, Eigen::VectorXf),
       vector<float> tspan,
-      Eigen::VectorXd y0,
+      Eigen::VectorXf y0,
       float t_step,
-      double tol=1e-8);
+      double tol);
+
+  // override step method
+  Eigen::VectorXf step(float time, Eigen::VectorXf state, Eigen::VectorXf args) override;
+
+  // override name
+  const string name = "Forward Euler Solver";
 
 };
 
