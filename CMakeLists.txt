@@ -15,6 +15,6 @@ find_library(PYTHON_LIB
 
 
 # add_executable(main.out main.cpp odesolvers.cpp)
-add_executable(test.out test.cpp odesolvers.cpp)
+add_executable(test.out example.cpp odesolvers.cpp)
 target_link_libraries(test.out ${PYTHON_LIB})
 
