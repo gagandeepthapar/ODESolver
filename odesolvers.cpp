@@ -9,12 +9,12 @@ using namespace std;
  * ODE Definitions
  */ 
 
-Eigen::VectorXd ODESolver::solve(Eigen::VectorXd args){
+Eigen::VectorXf ODESolver::solve(Eigen::VectorXf args){
  
   // unpack data
   double t = (double)this->m_t0;
   double dt = this->m_tstep;
-  Eigen::VectorXd cur_state = this->m_y0;
+  Eigen::VectorXf cur_state = this->m_y0;
 
   // iterate through timespan 
   while(t < this->m_tF){
