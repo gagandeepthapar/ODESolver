@@ -10,7 +10,7 @@ RK-45, on the other hand, is the workhorse of integration schemes and is able to
 
 ## Includes
 Requires the `Eigen` C++ library which can be found [here](https://eigen.tuxfamily.org/index.php?title=Main_Page).
-Also uses the `MatplotLib` C++ header to plot data directly in C++ which can be found [here](https://github.com/lava/matplotlib-cpp).
+Also uses the `Matplot++` C++ library to plot data directly in C++ which can be found [here](https://github.com/alandefreitas/matplotplusplus/tree/master#line-plots).
 `CMake` and `make` are used also used to build the program.
 
 ## Running 
@@ -20,7 +20,7 @@ git clone https://github.com/gagandeepthapar/ODESolver/tree/main
 ```
 
 
-Ensure that the required libraries are installed. My system adds the `Eigen` and `MatplotLib` headers directly in my include path so I don't have to explicity call it. You can either add the libaries in the same project directory or where you'd like (e.g., `usr/local/include`) and add them to your include path:
+Ensure that the required libraries are installed. My system adds the `Eigen` and `Matplot++` headers directly in my include path so I don't have to explicity call it. You can either add the libaries in the same project directory or where you'd like (e.g., `usr/local/include`) and add them to your include path:
 ```
 $ export CPLUS_INCLUDE_PATH="usr/local/include:$CPLUS_INCLUDE_PATH"
 ```
