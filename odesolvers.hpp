@@ -62,11 +62,17 @@ class RKF45:public ODESolver{
 
 public:
   // Constructor
-  RKF45(Eigen::VectorXd(*func)(float, Eigen::VectorXd, Eigen::VectorXd),
+  RKF45(Eigen::VectorXf(*func)(float, Eigen::VectorXf, Eigen::VectorXf),
       vector<float> tspan,
+      Eigen::VectorXf y0,
       float t_step,
-      Eigen::VectorXd y0,
-      double tol=1e-8);
+      double tol);
+
+  // override step method
+  Eigen::VectorXf step(float time, Eigen::VectorXf state, Eigen::VectorXf args) override; 
+
+  // override name 
+  const string name = "RKF45 Solver";
 
 };
 
