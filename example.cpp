@@ -75,7 +75,7 @@ int main(){
 
  
   auto p = plt::plot3(x, y, z);
-  cout << z.size() << endl;
+  plt::title(ode.name);
   plt::show();
   
   return 0;
