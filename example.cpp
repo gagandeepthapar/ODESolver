@@ -1,4 +1,4 @@
-#include "odesolvers.hpp"
+#include "ode_solver.hpp"
 #include "eigen3/Eigen/Core"
 #include "matplot/matplot.h"
 

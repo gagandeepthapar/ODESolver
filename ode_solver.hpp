@@ -1,5 +1,5 @@
-#ifndef ODESOLVERS_HPP 
-#define ODESOLVERS_HPP 
+#ifndef ODE_SOLVER_HPP 
+#define ODE_SOLVER_HPP 
 
 #include <string>
 #include <vector>

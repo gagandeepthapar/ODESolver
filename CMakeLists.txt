@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(VanDerPol)
+project(ODESolver)
 
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/..)
@@ -15,6 +15,6 @@ find_library(PYTHON_LIB
 find_package(Matplot++ REQUIRED)
 
 # add_executable(main.out main.cpp odesolvers.cpp)
-add_executable(example.out example.cpp odesolvers.cpp)
+add_executable(example.out example.cpp ode_solver.cpp)
 target_link_libraries(example.out ${PYTHON_LIB})
 target_link_libraries(example.out Matplot++::matplot)
