@@ -9,15 +9,25 @@ using namespace std;
  * ODE Definitions
  */ 
 
+// solve using class params
 Eigen::VectorXf ODESolver::solve(Eigen::VectorXf args){
+  return ODESolver::solve(this->m_y0,
+                          {this->m_t0, this->m_tF},
+                          args);
+}
+
+// solve using specified params 
+Eigen::VectorXf ODESolver::solve(Eigen::VectorXf state,
+                                 std::vector<float> tspan,
+                                 Eigen::VectorXf args){
  
   // unpack data
-  double t = (double)this->m_t0;
-  double dt = this->m_tstep;
-  Eigen::VectorXf cur_state = this->m_y0;
+  float t = tspan[0];
+  float dt = this->m_tstep;
+  Eigen::VectorXf cur_state = state;
 
   // iterate through timespan 
-  while(t < this->m_tF){
+  while(t < tspan[1]){
     // step through based on integration scheme 
     cur_state = step(t, cur_state, args);
 
